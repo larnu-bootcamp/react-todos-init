@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Box from './Box';
+import { useCounterState } from './customHook';
+import Form from './Form';
+import { useTodoState } from './TodoState';
 
 function App() {
+  const {count, handleSubmit} = useCounterState(0);
+  
+  const {todos, addTodo, deleteTodo} = useTodoState([]);
+  // cada vez que el usuario agregue un nuevo todo, 
+  // se agrega al listado de todos.
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Box
+        name="Caja 1"
+        count={count}
+        handleSubmit={handleSubmit}
+      />
+      <Form submit={addTodo} />
+      {todos.map(todo => <p>todo</p>)}
     </div>
   );
 }
